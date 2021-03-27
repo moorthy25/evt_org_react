@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "./navbar";
 import { getCookie } from './utilities'
+import axios from "axios"
 // import './checkout'
 
 
@@ -75,7 +76,18 @@ const Competition = () => {
         description: "Test Transaction for Hover registration",
         image: "https://ams.americancollege.edu.in/ams/images/aclogin_logofinal.png",
         order_id: Order, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        callback_url: "http://localhost:3010/paymentSuccess",
+        handler: async function (response) {
+            const data = {
+                razorpayPaymentId: response.razorpay_payment_id,
+                razorpayOrderId: response.razorpay_order_id,
+                razorpaySignature: response.razorpay_signature,
+            };
+
+            const result = await axios.post("http://localhost:3010/paymentSuccess", data);
+            console.log(result);
+
+            alert("Payment success! your Payment reference number:"+ result.data.razorpayPaymentId);
+        },
         prefill: {
             name: Name,
             email: Email,
@@ -125,6 +137,9 @@ const Competition = () => {
                         alert("Razorpay SDK failed to load. Are you online?");
                         return;
                     }
+                    console.log(Name)
+                    console.log(Email)
+                    console.log(Mobile)
                     var rzp1 = new window.Razorpay(options);
                     rzp1.open();
                 });
