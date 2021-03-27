@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import './home.css'
+
 const Home = () => {
     return (
         <div className="App">
@@ -8,9 +8,10 @@ const Home = () => {
                 <title>Event management System</title>
             </head>
             <body>
-                <div class="home">
+                <div class="index_home">
 
         <div class="nav">
+            <img src="../1.png" alt="logo"/>
             <h1>Event Organzation System</h1>
             <ul>
                 <li><Link to="../">Home</Link></li>

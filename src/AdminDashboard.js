@@ -9,13 +9,11 @@ const AdminDashboard = () => {
         window.location = "../admin"
     }
     const logout = () => {
+        //delete cookie
         document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "utype=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         window.location = "/"
     }
-
-
-
 
     fetch('http://localhost:3010/admin/loginValidate', {
         method: 'POST',

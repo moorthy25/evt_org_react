@@ -1,11 +1,22 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom'
+import { getCookie } from './utilities'
+
+
+
 const Signup = () => {
+    // already login redirection
+    if (getCookie('email') != "") {
+        window.location = "../dashboard"
+    }
+
+
     const [name,setName]=useState('')
     const [email,setEmail]=useState('')
     const [pass,setPass]=useState('')
     const [mnum,setMnum]=useState('')
     const [institute,setInstitute]=useState('')
+
     const signupHandler=(e)=>{
         
         e.preventDefault();
@@ -44,7 +55,6 @@ const Signup = () => {
     }
     return ( 
         <div className="home">
-            hello
         <div className="login">
             <form onSubmit={signupHandler}>
                 <input className="form_input" focus type="text" onChange={(e)=>setName(e.target.value)}  placeholder="Your Name"/>
