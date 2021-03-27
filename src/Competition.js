@@ -1,85 +1,63 @@
 import { useState } from "react";
-import Compet_list from "./compet_list";
 import Navbar from "./navbar";
-import { comp_fetch } from './utilities'
-
-// const List_competition = ({ competition_details }) => {
-
-//     // onChange={fetch_price}
-//     return ( 
-
-//      );
-// }
+// import './comp_reg.js'
 
 
 const Competition = () => {
-    // const comp_data=[{competition_name: "WEB development",price: 150}]
-    // const [competition_details, setCompet] = useState(comp_data);
-    // let status=false;
-    // const data=comp_fetch();
-    //     console.log("from competition.js"+data)
 
+    return (
 
+<div className="home" >
+    <Navbar />
+        {/* <div className="nav">
+            <h1>Event Management System</h1>
+            <ul className="navList">
+                <li value="home" onclick="document.getElementById('home').classList.remove('hide');document.getElementById('competition_div').classList.add('hide')">Home</li>
+                <li value="competition" onclick="document.getElementById('competition_div').classList.remove('hide');document.getElementById('home').classList.add('hide')">Competition</li>
+                <li><a onclick="logout()">Logout</a></li>
+            </ul>
 
-    const [fees, setFees] = useState('100');
+        </div> */}
+        <div id="competition_div" className="hide">
+            <label for="">Registered Competitions:</label>
+            <ul id="reg_com">
 
-    return (<div className="competition_parent">
-        <Navbar />
-
-        <div className="competition">
-            {/* <!-- <label for="">Registered Competitions:</label> --> */}
-            {/* <ul id="reg_com">
-
-            </ul> */}
+            </ul>
             <table>
                 <tr>
                     <td>Select competition:</td>
-                    <td>
-                        <select id="competition">
-                            <option value="">Select Competition...</option>
-                            {
-
-
-                                fetch('http://localhost:3010/competition_details').then((res) => {
-                                    if (res.ok) {
-                                        res.json().then((data) => {
-                                            // console.log(data.success);
-                                            data.success.forEach(element => {
-                                                <option value={element.price} >{element.competition_name}</option>
-                                            })
-
-                                        })
-                                    } else {
-                                        alert("error while fetch competition details")
-                                    }
-                                }, (rej) => console.log(rej))
-
-
-
-                            }
-                            {/* {<Compet_list competition_details={competition_details} /> } */}
-                        </select>
-                    </td>
+                    <td><select name="competition" onchange="fetch_price(this.value)" id="competition">
+                            <option value="">Please select...</option>
+                        </select></td>
                 </tr>
                 <tr>
                     <td>Registration fee</td>
-                    <td id="amt">{fees}</td>
+                    <td id="amt"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><button className="pay-btn" id="rzp-button1">Pay & Register</button></td>
-
                     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
                     <script src="../comp_reg.js"></script>
                 </tr>
             </table>
         </div>
+        <div id="home">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td id="username"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td id="uemail"></td>
+                </tr>
+                <tr>
+                    <td>College</td>
+                    <td id="college"></td>
+                </tr>
+            </table>
+        </div>
     </div>
-
-
-
-
-
-
 
     );
 }
