@@ -7,12 +7,13 @@ import { getCookie } from '../utilities';
 
 
 const Competition = () => {
-    //     const [reload_reg_comp,set_regcomp]=useState(false);
     const [competition_details, setCompetition] = useState(false);
-    //     const [index, setIndex] = useState(0)
-    //     const [price, setPrice] = useState('')
-    //     const [disabled, setDisable] = useState(false)
-    //     const [paybtn,setPaybtn]=useState(false)
+        const [comp_name,setComp_name]=useState('');
+        const [comp_price, setComp_price] = useState('')
+        const [pdf_link, setPdf_link] = useState('')
+        const [comp_leader, setcomp_leader] = useState('')
+        const [comp_leader_email,setcomp_leader_email]=useState("")
+        const [comp_leader_Pass,setcomp_leader_Pass]=useState("")
 
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
@@ -63,7 +64,42 @@ const Competition = () => {
 
         return () => abortCont.abort();
     }, [])
+const handleSubmit=()=>{
 
+let comp_data={
+    competition:{
+        competition_name: comp_name,
+        max_mark: 100,
+        price: comp_price,
+        rules_pdf_path: pdf_link
+    },
+    team_leader:{
+        name: comp_leader,
+        email: comp_leader_email,
+        password:comp_leader_Pass
+    }
+}
+
+
+    fetch('http://localhost:3010/admin/addCompetition', {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(comp_data)
+    }).then((success) => {
+        if (success.ok) {
+            success.json().then(json => {
+                if(json.status) alert('Competition added successfully');
+                else alert('There is an error while adding competition')
+            });
+        }
+    }, (fail) => { alert(fail) })
+        .catch((err) => {
+            console.log(err);
+            alert('Error while adding Competition')
+        })    
+
+
+}
 
     return (
         <div className="admin_competition_root">
@@ -93,11 +129,20 @@ const Competition = () => {
                         }
                     </table>
                 </div>
-                {/* <form onSubmit={handleSubmit}>
-                <input type="text" required value={email} placeholder="Email address" onChange={(e) => setEmail(e.target.value)} />
-                <input type="password" required value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-                <button>Login</button>
-                </form> */}
+                <form onSubmit={handleSubmit}>
+                <input type="text" required value={comp_name} placeholder="Competition Name" onChange={(e) => setComp_name(e.target.value)} />
+                <input type="text" required value={comp_price} placeholder="price" size="4" onChange={(e) => setComp_price(e.target.value)} />
+                <input type="text" required value={pdf_link} placeholder="PDF link for Rules and Regulatoin" onChange={(e) => setPdf_link(e.target.value)} />
+                <input type="text" required value={comp_leader} placeholder="Team leader Name" onChange={(e) => setcomp_leader(e.target.value)} />
+                <input type="text" required value={comp_leader_email} placeholder="Team leader's Email" onChange={(e) => setcomp_leader_email(e.target.value)} />
+                <input type="text" required value={comp_leader_Pass} placeholder="Team leader's Password" onChange={(e) => setcomp_leader_Pass(e.target.value)} />
+                <button>Create</button>
+                </form>
+                
+
+
+
+
         </div>
     ); 
 } 
