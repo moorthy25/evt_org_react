@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { getCookie } from './utilities'
+import { getCookie } from '../utilities'
 
 const Admin = () => {
     const [email, setEmail] = useState('');
@@ -32,7 +32,7 @@ const Admin = () => {
     }
 
     return (
-        <div className="login">
+        <div className="admin-login">
             <h2>Admin Login</h2>
             <form onSubmit={handleSubmit}>
                 <input type="text" required value={email} placeholder="Email address" onChange={(e) => setEmail(e.target.value)} />

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState } from 'react';
-import { getCookie } from './utilities'
+import { getCookie } from '../utilities'
 
 const AdminDashboard = () => {
     const [Name, setName] = useState('')
@@ -40,7 +40,7 @@ const AdminDashboard = () => {
             <div className="navbar">
                 <ul>
                     <li><Link to="../admin/dashboard">Dashboard</Link></li>
-                    <li><Link to="../admin/event">Event</Link></li>
+                    {/* <li><Link to="../admin/event">Event</Link></li> */}
                     <li><Link to="../admin/competition">Competition</Link></li>
                     <li><Link to="../admin/invitation">Invitation</Link></li>
                     <li><Link to="../admin/notification">Notification</Link></li>

@@ -52,6 +52,7 @@ const Dashboard = () => {
                     <li><Link to="../dashboard">Dashboard</Link></li>
                     <li><Link to="../competition">Competition</Link></li>
                     <li><Link to="../result">Result</Link></li>
+                    <li><Link to="../notification">View Notifications</Link></li>
                     <li><button onClick={logout}>LOGOUT</button></li>
                 </ul>
             </div>

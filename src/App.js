@@ -1,12 +1,15 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Admin from './Admin'
-import AdminDashboard from './AdminDashboard'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Admin from './admin/Admin'
+import AdminDashboard from './admin/AdminDashboard'
 import Competition from './Competition';
 import Dashboard from './Dashboard';
 import Home from './Home'
 import Login from './Login';
+import Notification from './Notification';
+import Result from './result';
 import Signup from './signup';
-
+import Competition_admin from './admin/competition'
+import Competition_admin_view from './admin/competition_view'
 
 function App() {
 
@@ -27,6 +30,12 @@ function App() {
                         <Route exact path="/competition">
                             <Competition />
                         </Route>
+                        <Route exact path="/notification">
+                            <Notification />
+                        </Route>
+                        <Route exact path="/result">
+                            <Result />
+                        </Route>
                         <Route exact path="/admin">
                             <Admin />
                         </Route>
@@ -36,6 +45,13 @@ function App() {
                         <Route path="/admin/dashboard">
                             <AdminDashboard />
                         </Route>
+                        <Route exact path="/admin/competition">
+                            <Competition_admin />
+                        </Route>
+                        {/* <Route path="/competition/:id">
+                            <Competition_admin_view />
+                            {console.log("inside view")}
+                        </Route> */}
                     </Switch>
                 </div>
             </div>

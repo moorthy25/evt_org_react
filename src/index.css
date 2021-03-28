@@ -150,6 +150,38 @@ align-self: center; */
   box-shadow: 0 0 20px 4px black;
   margin: 0 auto;
 }
+.admin-login {
+  background-color: rgba(10, 225, 130, 0.5);
+  width: fit-content;
+  padding: 6%;
+  align-self: center;
+  border-radius: 10px;
+  box-shadow: 0 0 20px 4px black;
+  margin: 0 auto;
+}
+
+.admin-login * {
+  display: block;
+  padding: 20px;
+  margin-top: 2%;
+  border-radius: 5px;
+  font-size: 20px;
+
+}
+
+.admin-login input[type="submit"] {
+  background: rgba(10, 225, 130, 0.5);
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.admin-login input[type="submit"]:hover {
+  background: rosybrown;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+
 
 .login * {
   display: block;
@@ -225,4 +257,28 @@ align-self: center; */
 
 .signup * {
   display: inline;
+}
+
+
+/*  notification component*/
+.notify-data{
+  width: fit-content;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: aqua;
+  border-radius: 2%;
+  box-shadow: 0 0 6px 1px black;
+  -webkit-border-radius: 2%;
+  -moz-border-radius: 2%;
+  -ms-border-radius: 2%;
+  -o-border-radius: 2%;
+
+}
+.notify-data>h4{
+  /* margin: 10px; */
+  color: #d84343;
+}
+.notify-data>p{
+  color: rgba(105, 105, 105, 0.603);
 }
