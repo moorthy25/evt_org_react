@@ -10,6 +10,8 @@ import Result from './result';
 import Signup from './signup';
 import Competition_admin from './admin/competition'
 import Competition_admin_view from './admin/competition_view'
+import Invitation from './admin/invitation';
+import Admin_Notification from './admin/Notification';
 
 function App() {
 
@@ -48,10 +50,12 @@ function App() {
                         <Route exact path="/admin/competition">
                             <Competition_admin />
                         </Route>
-                        {/* <Route path="/competition/:id">
-                            <Competition_admin_view />
-                            {console.log("inside view")}
-                        </Route> */}
+                        <Route path="/admin/invitation">
+                            <Invitation />
+                        </Route>
+                        <Route exact path="/admin/notification">
+                            <Admin_Notification />
+                        </Route>
                     </Switch>
                 </div>
             </div>
