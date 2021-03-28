@@ -6,15 +6,19 @@ import axios from "axios"
 
 
 const Competition = () => {
+    const [reload_reg_comp,set_regcomp]=useState(false);
     const [competition, setCompet] = useState([{ price: 0 }])
     const [index, setIndex] = useState(0)
     const [price, setPrice] = useState('')
     const [disabled, setDisable] = useState(false)
+    const [paybtn,setPaybtn]=useState(false)
 
     const [Name, setName] = useState('')
     const [Email, setEmail] = useState('')
     const [Mobile, setMobile] = useState('')
     const [Order, setOrder] = useState('')
+var new_compt=[];
+
 
 
     // checking login is present
@@ -23,7 +27,7 @@ const Competition = () => {
         window.location = "../login"
     }
 
-
+    const [registered_competition, setRegCompet] = useState([{ competition_name: "..."}]);
     const LoginData = { email };
     fetch('http://localhost:3010/validate', {
         method: 'POST',
@@ -36,6 +40,7 @@ const Competition = () => {
                     setName(json.name)
                     setEmail(json.email)
                     setMobile(json.phone_no)
+
                 } else
                     window.location.href = "/"
             });
@@ -54,13 +59,41 @@ const Competition = () => {
         const abortCont = new AbortController();
         fetch('http://localhost:3010/competition_details', { signal: abortCont.signal }).then(res => res.json().then(res => {
             setCompet(res.success)
+            new_compt=res.success
+            console.log("new compt",new_compt);
         }), rej => {
             console.log(rej)
         })
             .catch(rej => console.log(rej))
         // abort the fetch
+        
+
         return () => abortCont.abort();
     }, [])
+
+    useEffect(()=>{
+        const abortCont = new AbortController();
+        fetch("http://localhost:3010/registered_competition", {
+            method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+            signal: abortCont.signal
+        }).then(resp => { resp.json().then((suc)=>{setRegCompet(suc)
+            let list_id=suc.map((data, index) => {
+                return data._id
+            })
+            console.log("list id",list_id);
+            console.log("new compt",new_compt);
+            list_id.forEach(id=>new_compt=new_compt.filter(element => element._id!=id))
+            // console.log("new compt",new_compt);
+            setCompet(new_compt)
+            // setPrice(0)
+            if(!new_compt.length) setPaybtn(true);
+            else setPaybtn(false)
+        },(fail)=>console.log(fail))  }, fail => console.log(fail))
+        return () => abortCont.abort();
+    },[reload_reg_comp])
+
 
     useEffect(() => {
         setPrice(competition[index].price);
@@ -78,6 +111,9 @@ const Competition = () => {
         order_id: Order, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         handler: async function (response) {
             const data = {
+                order_id: Order,
+                partEmail: Email,
+                compet_id: competition[index]._id,
                 razorpayPaymentId: response.razorpay_payment_id,
                 razorpayOrderId: response.razorpay_order_id,
                 razorpaySignature: response.razorpay_signature,
@@ -86,7 +122,9 @@ const Competition = () => {
             const result = await axios.post("http://localhost:3010/paymentSuccess", data);
             console.log(result);
 
-            alert("Payment success! your Payment reference number:"+ result.data.razorpayPaymentId);
+            set_regcomp(true);
+            alert("Payment success! your Payment reference number:" + data.razorpayPaymentId);
+
         },
         prefill: {
             name: Name,
@@ -132,7 +170,7 @@ const Competition = () => {
                 success.json().then(async (json) => {
                     console.log(json);
                     setOrder(json.order.id)
-                    const res=await loadScript("https://checkout.razorpay.com/v1/checkout.js")
+                    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js")
                     if (!res) {
                         alert("Razorpay SDK failed to load. Are you online?");
                         return;
@@ -172,12 +210,27 @@ const Competition = () => {
                 </select>
                 <h2>Price : {price}</h2>
                 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-                <button id="rzp-button1" onClick={(e) => {
+                <button id="rzp-button1" disabled={paybtn} onClick={(e) => {
                     getOrderId()
                     e.preventDefault();
                 }
                 }>Pay & Register</button>
 
+            </div>
+            <div>
+                {/* <h2></h2> */}
+                <table>
+                    <tr>
+                        <th>Registered competition</th>
+                    </tr>
+                    {registered_competition && registered_competition.map((data, index) => {
+
+                        return (
+                            <tr><td>{data.competition_name}</td></tr>
+                        );
+                    })
+                    }
+                </table>
             </div>
         </div>
 
