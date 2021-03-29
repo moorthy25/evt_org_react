@@ -13,9 +13,9 @@ const Result = () => {
 //     const [disabled, setDisable] = useState(false)
 //     const [paybtn,setPaybtn]=useState(false)
 
-//     const [Name, setName] = useState('')
-//     const [Email, setEmail] = useState('')
-//     const [Mobile, setMobile] = useState('')
+    const [Name, setName] = useState('')
+    const [Email, setEmail] = useState('')
+    const [Mobile, setMobile] = useState('')
 //     const [Order, setOrder] = useState('')
 // var new_compt=[];
 
@@ -37,9 +37,9 @@ const Result = () => {
         if (success.ok) {
             success.json().then(json => {
                 if (json.email != undefined) {
-                    // setName(json.name)
-                    // setEmail(json.email)
-                    // setMobile(json.phone_no)
+                    setName(json.name)
+                    setEmail(json.email)
+                    setMobile(json.phone_no)
 
                 } else
                     window.location.href = "/"

@@ -12,6 +12,9 @@ import Competition_admin from './admin/competition'
 import Competition_admin_view from './admin/competition_view'
 import Invitation from './admin/invitation';
 import Admin_Notification from './admin/Notification';
+import User from './user/Login';
+import UserDashboard from './user/Dashboard';
+import User_comp from './user/competition';
 
 function App() {
 
@@ -55,6 +58,15 @@ function App() {
                         </Route>
                         <Route exact path="/admin/notification">
                             <Admin_Notification />
+                        </Route>
+                        <Route exact path="/user">
+                            <User />
+                        </Route>
+                        <Route exact path="/user/dashboard">
+                            <UserDashboard />
+                        </Route>
+                        <Route exact path="/user/enter_result">
+                            <User_comp />
                         </Route>
                     </Switch>
                 </div>
